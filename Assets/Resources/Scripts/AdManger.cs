@@ -1,29 +1,18 @@
 ﻿using System;
 using UnityEngine;
-using GoogleMobileAds;
 using GoogleMobileAds.Api;
-using GoogleMobileAds.Common;
 
 public class AdManger : MonoBehaviour
 {
     private BannerView bannerView;
+    private InterstitialAd interstitial;
     private string adUnitId = "";
 
     void Start()
     {
-        PlayerPrefs.SetInt("loadtestad", 0);        // 1 = Test Ad  ; 0 = Produktion Ad
+        bool productionAds = false;
 
-        if (PlayerPrefs.GetInt("loadtestad", 0) == 1)
-        {
-#if UNITY_ANDROID
-            adUnitId = "ca-app-pub-3940256099942544/6300978111";      // Test Banner: Android
-#elif UNITY_IPHONE
-            adUnitId = "ca-app-pub-3940256099942544/2934735716";      // Test Banner: iOS
-#else
-            adUnitId = "unexpected_platform";
-#endif
-        }
-        else
+        if (productionAds)
         {
 #if UNITY_ANDROID
             adUnitId = "ca-app-pub-9891259559985223/9352754685";      // Produktion Banner: Android
@@ -33,19 +22,42 @@ public class AdManger : MonoBehaviour
             adUnitId = "unexpected_platform";
 #endif
         }
+        else
+        {
+#if UNITY_ANDROID
+            adUnitId = "ca-app-pub-3940256099942544/6300978111";      // Test Banner: Android
+#elif UNITY_IPHONE
+            adUnitId = "ca-app-pub-3940256099942544/2934735716";      // Test Banner: iOS
+#else
+            adUnitId = "unexpected_platform";
+#endif
+        }
+    }
 
+    public void init()
+    {
         MobileAds.Initialize(initStatus =>
         {
             Debug.Log("intitStatus: " + initStatus.ToString());
-            RequestBanner();
         });
-
-        //MobileAds.Initialize("ca-app-pub-9891259559985223~1517235887");
-        //MobileAds.Initialize(Action<InitializationStatus>comple)
-
     }
 
-    private void RequestBanner()
+    public void loadInterstitial()
+    {
+        AdRequest request = new AdRequest.Builder().Build();
+        interstitial = new InterstitialAd(adUnitId);
+        interstitial.LoadAd(request);
+    }
+
+    public void showInterstitial()
+    {
+        if (interstitial.IsLoaded())
+        {
+            interstitial.Show();
+        }
+    }
+
+    public void RequestBanner()
     {
         // Create a banner.
         bannerView = new BannerView(adUnitId, AdSize.GetPortraitAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth), AdPosition.Bottom);

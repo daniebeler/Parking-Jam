@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class GameCanvasController : MonoBehaviour
 {
     private GameObject currentLevel, btnReset, btnHome;
-    private Camera cam;
 
     private GameObject goOverlay;
     private Image imgOverlay;
@@ -28,27 +27,7 @@ public class GameCanvasController : MonoBehaviour
         btnReset.GetComponent<RectTransform>().anchoredPosition = new Vector2(Screen.width / -4, Screen.width / -4);
         btnHome.GetComponent<RectTransform>().anchoredPosition = new Vector2(Screen.width / 4, Screen.width / -4);
 
-        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        if (PlayerPrefs.GetInt("level", 0) < 10)
-        {
-            cam.backgroundColor = new Color32(21, 161, 86, 255);
-        }
-        else if (PlayerPrefs.GetInt("level", 0) < 20)
-        {
-            cam.backgroundColor = new Color32(247, 147, 35, 255);
-        }
-        else if (PlayerPrefs.GetInt("level", 0) < 30)
-        {
-            cam.backgroundColor = new Color32(24, 156, 216, 255);
-        }
-        else if (PlayerPrefs.GetInt("level", 0) < 40)
-        {
-            cam.backgroundColor = new Color32(235, 39, 39, 255);
-        }
-        else if (PlayerPrefs.GetInt("level", 0) < 50)
-        {
-            cam.backgroundColor = new Color32(124, 0, 232, 255);
-        }
+        
 
         if (PlayerPrefs.GetInt("justreset", 0) == 0)
         {

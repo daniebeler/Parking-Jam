@@ -76,6 +76,7 @@ TagManager:
   - txtfollowme
   - btninstagram
   - btnreview
+  - scriptholder
   layers:
   - Default
   - TransparentFX

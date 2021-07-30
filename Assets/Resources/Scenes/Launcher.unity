@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 240062145}
   - component: {fileID: 240062144}
   m_Layer: 0
-  m_Name: Holder
+  m_Name: ScriptHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   txtName: {fileID: 660365520}
+  adManger: {fileID: 240062145}
 --- !u!114 &240062145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,6 +468,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &1905516705
 Canvas:
   m_ObjectHideFlags: 0

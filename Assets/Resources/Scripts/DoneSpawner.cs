@@ -1,45 +1,29 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using GoogleMobileAds.Api;
-using System;
 using UnityEngine.SceneManagement;
 
 public class DoneSpawner : MonoBehaviour
 {
     private Button btnMenu;
     private Button btnNext;
-    private Button btnWatchAd;
     private Button btnReview;
 
     private Text txtWellDone;
-    private Text txtSupport;
-    private Text txtWatchedAds;
-
-    private RewardedAd rewardedAd;
 
     private Camera cam;
-
-    public Sprite imgLoadAd;
-    public Sprite imgLoading;
-    public Sprite imgTryAgain;
-    private bool canClickAd = true;
 
     private GameObject goOverlay;
     private Image imgOverlay;
 
     void Start()
     {
+
         btnMenu = GameObject.FindGameObjectWithTag("btnmenu").GetComponent<Button>();
         btnNext = GameObject.FindGameObjectWithTag("btnnext").GetComponent<Button>();
-        btnWatchAd = GameObject.FindGameObjectWithTag("btnwatchad").GetComponent<Button>();
         btnReview = GameObject.FindGameObjectWithTag("btnreview").GetComponent<Button>();
 
         txtWellDone = GameObject.FindGameObjectWithTag("txtwelldone").GetComponent<Text>();
-        txtSupport = GameObject.FindGameObjectWithTag("txtsupport").GetComponent<Text>();
-        txtWatchedAds = GameObject.FindGameObjectWithTag("txtwatchedads").GetComponent<Text>();
-
-        txtWatchedAds.text = "Watched Ads: " + PlayerPrefs.GetInt("watchedads", 0);
 
         goOverlay = GameObject.FindGameObjectWithTag("overlay");
         imgOverlay = goOverlay.GetComponent<Image>();
@@ -81,16 +65,9 @@ public class DoneSpawner : MonoBehaviour
             btnNext.transform.position = new Vector2(Screen.width / 4 * 3, Screen.height / 4);
         }
 
-        btnWatchAd.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width / 3.5f, Screen.width / 7);
-        btnWatchAd.transform.position = new Vector2(Screen.width / 4, Screen.height / 4 * 3);
         btnReview.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width / 3.5f, Screen.width / 7);
         btnReview.transform.position = new Vector2(Screen.width / 4 * 3, Screen.height / 4 * 3);
         txtWellDone.transform.position = new Vector2(Screen.width / 2, Screen.height / 8 * 3);
-        txtSupport.transform.position = new Vector2(Screen.width / 2, Screen.height / 8 * 7);
-        txtWatchedAds.transform.position = new Vector2(Screen.width / 2, (Screen.height / 4 * 3) - Screen.width / 7);
-
-
-        registerNewAd();
 
         StartCoroutine(FadeIn());
     }
@@ -118,82 +95,6 @@ public class DoneSpawner : MonoBehaviour
 #else
             adUnitId = "unexpected_platform";
 #endif
-        }
-
-        rewardedAd = new RewardedAd(adUnitId);
-
-        // Called when an ad request has successfully loaded.
-        rewardedAd.OnAdLoaded += HandleRewardedAdLoaded;
-        // Called when an ad request failed to load.
-        rewardedAd.OnAdFailedToLoad += HandleRewardedAdFailedToLoad;
-        // Called when an ad is shown.
-        rewardedAd.OnAdOpening += HandleRewardedAdOpening;
-        // Called when an ad request failed to show.
-        rewardedAd.OnAdFailedToShow += HandleRewardedAdFailedToShow;
-        // Called when the user should be rewarded for interacting with the ad.
-        rewardedAd.OnUserEarnedReward += HandleUserEarnedReward;
-        // Called when the ad is closed.
-        rewardedAd.OnAdClosed += HandleRewardedAdClosed;
-    }
-
-    public void HandleRewardedAdLoaded(object sender, EventArgs args)
-    {
-        MonoBehaviour.print("HandleRewardedAdLoaded event received");
-        rewardedAd.Show();
-    }
-
-    public void HandleRewardedAdFailedToLoad(object sender, AdErrorEventArgs args)
-    {
-        MonoBehaviour.print(
-            "HandleRewardedAdFailedToLoad event received with message: "
-                             + args.Message);
-        btnWatchAd.GetComponent<Image>().sprite = imgTryAgain;
-        canClickAd = true;
-    }
-
-    public void HandleRewardedAdOpening(object sender, EventArgs args)
-    {
-        MonoBehaviour.print("HandleRewardedAdOpening event received");
-        btnWatchAd.GetComponent<Image>().sprite = imgLoadAd;
-        canClickAd = true;
-    }
-
-    public void HandleRewardedAdFailedToShow(object sender, AdErrorEventArgs args)
-    {
-        MonoBehaviour.print(
-            "HandleRewardedAdFailedToShow event received with message: "
-                             + args.Message);
-    }
-
-    public void HandleRewardedAdClosed(object sender, EventArgs args)
-    {
-        MonoBehaviour.print("HandleRewardedAdClosed event received");
-        registerNewAd();
-    }
-
-    public void HandleUserEarnedReward(object sender, Reward args)
-    {
-        string type = args.Type;
-        double amount = args.Amount;
-        MonoBehaviour.print(
-            "HandleRewardedAdRewarded event received for "
-                        + amount.ToString() + " " + type);
-
-        PlayerPrefs.SetInt("watchedads", (PlayerPrefs.GetInt("watchedads", 0) + 1));
-        txtWatchedAds.text = "Watched Ads: " + PlayerPrefs.GetInt("watchedads", 0);
-        registerNewAd();
-    }
-
-    public void LoadAd()
-    {
-        if (canClickAd)
-        {
-            canClickAd = false;
-            btnWatchAd.GetComponent<Image>().sprite = imgLoading;
-            // Create an empty ad request.
-            AdRequest request = new AdRequest.Builder().Build();
-            // Load the rewarded ad with the request.
-            rewardedAd.LoadAd(request);
         }
     }
 

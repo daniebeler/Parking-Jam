@@ -6,12 +6,17 @@ using UnityEngine.UI;
 public class Launcher : MonoBehaviour
 {
     public Text txtName;
+    public AdManger adManger;
 
     void Start()
     {
+
         PlayerPrefs.SetInt("level", 0);
         StartCoroutine(FadeIn());
         StartCoroutine(StartFadeOut());
+
+        adManger.init();
+        //adManger.RequestBanner();   
     }
 
     IEnumerator StartFadeOut()
