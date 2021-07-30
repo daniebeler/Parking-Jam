@@ -146,7 +146,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.daniebeler.RushHour
+    Android: com.daniebeler.ParkingJam
     Standalone: com.Company.ProductName
     iPhone: com.daniebeler.parkingjam
   buildNumber:
