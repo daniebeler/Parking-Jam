@@ -10,13 +10,19 @@ public class Launcher : MonoBehaviour
 
     void Start()
     {
-
+        Application.targetFrameRate = 60;
         PlayerPrefs.SetInt("level", 0);
         StartCoroutine(FadeIn());
         StartCoroutine(StartFadeOut());
+        StartCoroutine(loadBanner());
+        
+    }
 
+    IEnumerator loadBanner()
+    {
         adManger.init();
-        //adManger.RequestBanner();   
+        adManger.RequestBanner();
+        yield return null;
     }
 
     IEnumerator StartFadeOut()

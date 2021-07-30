@@ -6,7 +6,8 @@ public class AdManger : MonoBehaviour
 {
     private BannerView bannerView;
     private InterstitialAd interstitial;
-    private string adUnitId = "";
+    private string adUnitIdBanner = "";
+    private string adUnitIdInterstitial = "";
 
     void Start()
     {
@@ -15,21 +16,27 @@ public class AdManger : MonoBehaviour
         if (productionAds)
         {
 #if UNITY_ANDROID
-            adUnitId = "ca-app-pub-9891259559985223/9352754685";      // Produktion Banner: Android
+            adUnitIdBanner = "ca-app-pub-9891259559985223/9352754685";              // Produktion Banner: Android
+            adUnitIdInterstitial = "ca-app-pub-9891259559985223/8952244136";        // Produktion Interstitial: Android
 #elif UNITY_IPHONE
-            adUnitId = "ca-app-pub-9891259559985223/9750949121";      // Produktion Banner: iOS
+            adUnitIdBanner = "ca-app-pub-9891259559985223/9750949121";      // Produktion Banner: iOS
+            adUnitIdInterstitial = "not_set";      // Produktion Interstitial: iOS
 #else
-            adUnitId = "unexpected_platform";
+            adUnitIdBanner = "unexpected_platform";
+            adUnitIdInterstitial = "unexpected_platform";
 #endif
         }
         else
         {
 #if UNITY_ANDROID
-            adUnitId = "ca-app-pub-3940256099942544/6300978111";      // Test Banner: Android
+            adUnitIdBanner = "ca-app-pub-3940256099942544/6300978111";      // Test Banner: Android
+            adUnitIdInterstitial = "ca-app-pub-3940256099942544/1033173712";      // Test Interstitial: Android
 #elif UNITY_IPHONE
-            adUnitId = "ca-app-pub-3940256099942544/2934735716";      // Test Banner: iOS
+            adUnitIdBanner = "ca-app-pub-3940256099942544/2934735716";      // Test Banner: iOS
+            adUnitIdInterstitial = "not_set";      // Test Interstitial: iOS
 #else
-            adUnitId = "unexpected_platform";
+            adUnitIdBanner = "unexpected_platform";
+            adUnitIdInterstitial = "unexpected_platform";
 #endif
         }
     }
@@ -45,7 +52,7 @@ public class AdManger : MonoBehaviour
     public void loadInterstitial()
     {
         AdRequest request = new AdRequest.Builder().Build();
-        interstitial = new InterstitialAd(adUnitId);
+        interstitial = new InterstitialAd(adUnitIdInterstitial);
         interstitial.LoadAd(request);
     }
 
@@ -60,7 +67,7 @@ public class AdManger : MonoBehaviour
     public void RequestBanner()
     {
         // Create a banner.
-        bannerView = new BannerView(adUnitId, AdSize.GetPortraitAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth), AdPosition.Bottom);
+        bannerView = new BannerView(adUnitIdBanner, AdSize.GetPortraitAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth), AdPosition.Bottom);
 
         // Called when an ad request has successfully loaded.
         bannerView.OnAdLoaded += HandleOnAdLoaded;
