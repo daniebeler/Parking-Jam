@@ -7,7 +7,6 @@ public class DoneSpawner : MonoBehaviour
 {
     private Button btnMenu;
     private Button btnNext;
-    private Button btnReview;
 
     private Text txtWellDone;
 
@@ -21,7 +20,6 @@ public class DoneSpawner : MonoBehaviour
 
         btnMenu = GameObject.FindGameObjectWithTag("btnmenu").GetComponent<Button>();
         btnNext = GameObject.FindGameObjectWithTag("btnnext").GetComponent<Button>();
-        btnReview = GameObject.FindGameObjectWithTag("btnreview").GetComponent<Button>();
 
         txtWellDone = GameObject.FindGameObjectWithTag("txtwelldone").GetComponent<Text>();
 
@@ -55,47 +53,19 @@ public class DoneSpawner : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("btnnext").SetActive(false);
             btnMenu.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width / 3.5f, Screen.width / 7);
-            btnMenu.transform.position = new Vector2(Screen.width / 2, Screen.height / 4);
+            btnMenu.transform.position = new Vector2(Screen.width / 2, Screen.height / 16 * 7);
         }
         else
         {
             btnMenu.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width / 3.5f, Screen.width / 7);
-            btnMenu.transform.position = new Vector2(Screen.width / 4, Screen.height / 4);
+            btnMenu.transform.position = new Vector2(Screen.width / 4, Screen.height / 16 * 7);
             btnNext.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width / 3.5f, Screen.width / 7);
-            btnNext.transform.position = new Vector2(Screen.width / 4 * 3, Screen.height / 4);
+            btnNext.transform.position = new Vector2(Screen.width / 4 * 3, Screen.height / 16 * 7);
         }
 
-        btnReview.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width / 3.5f, Screen.width / 7);
-        btnReview.transform.position = new Vector2(Screen.width / 4 * 3, Screen.height / 4 * 3);
-        txtWellDone.transform.position = new Vector2(Screen.width / 2, Screen.height / 8 * 3);
+        txtWellDone.transform.position = new Vector2(Screen.width / 2, Screen.height / 16 * 9);
 
         StartCoroutine(FadeIn());
-    }
-
-    private void registerNewAd()
-    {
-        string adUnitId = "";
-
-        if (PlayerPrefs.GetInt("loadtestad", 0) == 1)
-        {
-#if UNITY_ANDROID
-            adUnitId = "ca-app-pub-3940256099942544/5224354917";      // Test Reward: Android
-#elif UNITY_IPHONE
-            adUnitId = "ca-app-pub-3940256099942544/1712485313";      // Test Reward: iOS
-#else
-            adUnitId = "unexpected_platform";
-#endif
-        }
-        else
-        {
-#if UNITY_ANDROID
-            adUnitId = "ca-app-pub-9891259559985223/4310970517";      // Produktion Reward: Android
-#elif UNITY_IPHONE
-            adUnitId = "ca-app-pub-9891259559985223/6725971162";      // Produktion Reward: iOS
-#else
-            adUnitId = "unexpected_platform";
-#endif
-        }
     }
 
     IEnumerator FadeIn()
