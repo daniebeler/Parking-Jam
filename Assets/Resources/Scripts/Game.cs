@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -12,6 +10,9 @@ public class Game : MonoBehaviour
     {
         gameCanvasController = GameObject.FindGameObjectWithTag("gamecanvas").GetComponent<GameCanvasController>();
         setBackgroundColor();
+        Debug.Log("Now init");
+        adManger.init();
+        Debug.Log("Now loadinterstitial");
         adManger.loadInterstitial();
     }
 
@@ -47,7 +48,8 @@ public class Game : MonoBehaviour
             PlayerPrefs.SetInt("unlockedlevels", PlayerPrefs.GetInt("level", 0) + 1);
         }
 
+        Debug.Log("test");
         adManger.showInterstitial();
-        gameCanvasController.GameFadeOut("Done");
+        //gameCanvasController.GameFadeOut("Done");
     }
 }

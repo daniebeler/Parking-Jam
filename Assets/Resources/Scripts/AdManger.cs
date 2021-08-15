@@ -62,6 +62,8 @@ public class AdManger : MonoBehaviour
         {
             interstitial.Show();
         }
+
+        Debug.Log("Showed intersititial");
     }
 
     public void RequestBanner()
