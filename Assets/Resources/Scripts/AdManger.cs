@@ -79,8 +79,6 @@ public class AdManger : MonoBehaviour
         bannerView.OnAdOpening += HandleOnAdOpened;
         // Called when the user returned from the app after an ad click.
         bannerView.OnAdClosed += HandleOnAdClosed;
-        // Called when the ad click caused the user to leave the application.
-        bannerView.OnAdLeavingApplication += HandleOnAdLeavingApplication;
 
         // Create an empty ad request.
         AdRequest request = new AdRequest.Builder().Build();
@@ -98,7 +96,7 @@ public class AdManger : MonoBehaviour
     public void HandleOnAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
         MonoBehaviour.print("HandleFailedToReceiveAd event received with message: "
-                            + args.Message);
+                           );
     }
 
     public void HandleOnAdOpened(object sender, EventArgs args)
@@ -111,8 +109,4 @@ public class AdManger : MonoBehaviour
         MonoBehaviour.print("HandleAdClosed event received");
     }
 
-    public void HandleOnAdLeavingApplication(object sender, EventArgs args)
-    {
-        MonoBehaviour.print("HandleAdLeavingApplication event received");
-    }
 }

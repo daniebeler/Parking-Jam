@@ -50,6 +50,6 @@ public class Game : MonoBehaviour
 
         Debug.Log("test");
         adManger.showInterstitial();
-        //gameCanvasController.GameFadeOut("Done");
+        gameCanvasController.GameFadeOut("Done");
     }
 }
