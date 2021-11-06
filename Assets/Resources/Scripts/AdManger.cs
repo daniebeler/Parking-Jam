@@ -20,7 +20,7 @@ public class AdManger : MonoBehaviour
             adUnitIdInterstitial = "ca-app-pub-9891259559985223/8952244136";        // Produktion Interstitial: Android
 #elif UNITY_IPHONE
             adUnitIdBanner = "ca-app-pub-9891259559985223/9750949121";      // Produktion Banner: iOS
-            adUnitIdInterstitial = "not_set";      // Produktion Interstitial: iOS
+            adUnitIdInterstitial = "ca-app-pub-9891259559985223/1795509469";      // Produktion Interstitial: iOS
 #else
             adUnitIdBanner = "unexpected_platform";
             adUnitIdInterstitial = "unexpected_platform";
@@ -33,7 +33,7 @@ public class AdManger : MonoBehaviour
             adUnitIdInterstitial = "ca-app-pub-3940256099942544/1033173712";      // Test Interstitial: Android
 #elif UNITY_IPHONE
             adUnitIdBanner = "ca-app-pub-3940256099942544/2934735716";      // Test Banner: iOS
-            adUnitIdInterstitial = "not_set";      // Test Interstitial: iOS
+            adUnitIdInterstitial = "ca-app-pub-3940256099942544/4411468910";      // Test Interstitial: iOS
 #else
             adUnitIdBanner = "unexpected_platform";
             adUnitIdInterstitial = "unexpected_platform";
