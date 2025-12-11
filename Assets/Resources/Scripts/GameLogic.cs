@@ -39,7 +39,7 @@ public class GameLogic : MonoBehaviour
     {
         rigid.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
         isDragging = false;
-        rigid.velocity = new Vector2(0, 0);
+        rigid.linearVelocity = new Vector2(0, 0);
         if (transform.rotation.eulerAngles.z == 90)
         {
             if (IsATruck)
@@ -81,14 +81,14 @@ public class GameLogic : MonoBehaviour
             {
                 if ((mousePosition.y < 0 && canNegativeY) || (mousePosition.y > 0 && canPositiveY))
                 {
-                    rigid.velocity = mousePosition * 30;
+                    rigid.linearVelocity = mousePosition * 30;
                 }
             }
             else
             {
                 if ((mousePosition.x < 0 && canNegativeX) || (mousePosition.x > 0 && canPositiveX))
                 {
-                    rigid.velocity = mousePosition * 30;
+                    rigid.linearVelocity = mousePosition * 30;
                 }
             }
         }
